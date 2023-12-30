@@ -31,7 +31,8 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: const Text('Home'),
+        backgroundColor: Colors.blue[200],
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(

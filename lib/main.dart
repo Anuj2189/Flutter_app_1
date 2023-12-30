@@ -1,8 +1,10 @@
-import 'dart:js_interop';
+
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/login_view.dart';
+import 'package:flutter_application_1/register_view.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -23,6 +25,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('HomePage'),
+        backgroundColor: Colors.blue[100],
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -31,13 +34,15 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-            final user = FirebaseAuth.instance.currentUser;
-            if(user?.emailVerified??false){
-              print('Your email is verified');
-            }else{
-              print('Please verify your email');
-            }
-            return const Text('Done');
+            //final user = FirebaseAuth.instance.currentUser;
+            //print(user);
+            //if(user?.emailVerified??false){
+           // return const Text('Done');
+            //}else{
+              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerifyEmailView(),));
+              return const RegisterView();
+            //}
+            
              
             default:
               return const Text('Loading');
@@ -47,4 +52,24 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+class VerifyEmailView extends StatelessWidget {
+  const VerifyEmailView({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      body : Column(
+        children: [const Text('Please verify your email address'),
+        TextButton(onPressed:() async {
+          final user = FirebaseAuth.instance.currentUser;
+          await user?.sendEmailVerification();
+
+        }, child: const Text('Send Email Verification'))],
+        
+      )
+    );
+  }
+}
