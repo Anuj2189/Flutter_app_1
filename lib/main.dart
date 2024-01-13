@@ -7,11 +7,12 @@ import 'package:flutter_application_1/auth/auth_service.dart';
 
 
 import 'package:flutter_application_1/routes.dart';
-import 'package:flutter_application_1/verify_email_view.dart';
+
 import 'package:flutter_application_1/views/login_view.dart';
-import 'package:flutter_application_1/views/new_note_view.dart';
+import 'package:flutter_application_1/views/updated_notes_view.dart';
 import 'package:flutter_application_1/views/notes_view.dart';
 import 'package:flutter_application_1/views/register_view.dart';
+import 'package:flutter_application_1/views/verify_email_view.dart';
 import 'dart:developer';
 
 import 'package:path/path.dart';
