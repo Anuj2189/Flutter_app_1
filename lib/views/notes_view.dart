@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/auth/auth_service.dart';
+import 'package:flutter_application_1/auth/bloc/auth_bloc.dart';
+import 'package:flutter_application_1/auth/bloc/auth_event.dart';
 import 'package:flutter_application_1/cloud/cloud_note.dart';
 import 'package:flutter_application_1/cloud/firebase_cloud_storage.dart';
 import 'package:flutter_application_1/main.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_application_1/notes_service.dart';
 import 'package:flutter_application_1/routes.dart';
 import 'package:flutter_application_1/dialog/logout_dialog.dart';
 import 'package:flutter_application_1/views/notes_list_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -45,9 +48,8 @@ class _NotesViewState extends State<NotesView> {
                 case MenuAction.logout:
                   final shLogout = await showLogoutDialog(context);
                   if (shLogout) {
-                    await AuthService.firebase().logOut();
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+                    context.read<AuthBloc>().add(const AuthEventLogOut(),); 
+                   
                   }
               }
             },
