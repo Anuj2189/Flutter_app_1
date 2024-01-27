@@ -8,6 +8,7 @@ import 'package:flutter_application_1/auth/firebase_auth_provider.dart';
 import 'package:flutter_application_1/helpers/loading/loading_screen.dart';
 
 import 'package:flutter_application_1/routes.dart';
+import 'package:flutter_application_1/views/forgot_password_view.dart';
 
 import 'package:flutter_application_1/views/login_view.dart';
 import 'package:flutter_application_1/views/updated_notes_view.dart';
@@ -64,6 +65,9 @@ class HomePage extends StatelessWidget {
     }
     else if(state is AuthStateLoggedOut){
       return const LoginView();
+    }
+    else if(state is AuthStateForgotPassword){
+      return const ForgotPasswordView();
     } else if(state is AuthStateRegistering){
       return const RegisterView();
     }

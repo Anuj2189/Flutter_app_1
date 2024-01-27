@@ -14,6 +14,7 @@ class VerifyEmailView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
+            backgroundColor: Colors.blue[200],
         ),
         body: Column(
           children: [

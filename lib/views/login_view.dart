@@ -41,8 +41,6 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state is AuthStateLoggedOut) {
-         
-
           if (state.exception is UserNotFoundAuthException) {
             await showErrorDialog(context, 'User not found');
           } else if (state.exception is WrongPasswordAuthException) {
@@ -57,40 +55,51 @@ class _LoginViewState extends State<LoginView> {
           title: const Text('Login'),
           backgroundColor: Colors.blue[200],
         ),
-        body: Column(
-          children: [
-            TextField(
-              controller: _email,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration:
-                  const InputDecoration(hintText: "Enter your email here"),
-            ),
-            TextField(
-              controller: _password,
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Enter password"),
-            ),
-            TextButton(
-              onPressed: () async {
-                final email = _email.text;
-                final password = _password.text;
-                context.read<AuthBloc>().add(
-                      AuthEventLogIn(email, password),
-                    );
-              },
-              child: const Text('Login'),
-            ),
-            TextButton( 
-                onPressed: () {
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Text('Please log in with your account to start accessing your notes!'),
+              TextField(
+                controller: _email,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration:
+                    const InputDecoration(hintText: "Enter your email here"),
+              ),
+              TextField(
+                controller: _password,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: const InputDecoration(hintText: "Enter password"),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
                   context.read<AuthBloc>().add(
-                        const AuthEventShouldRegister(),
+                        AuthEventLogIn(email, password),
                       );
                 },
-                child: const Text('Not Registered yet? Register Here!')),
-          ],
+                child: const Text('Login'),
+              ),
+              TextButton( 
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventShouldRegister(),
+                        );
+                  },
+                  child: const Text('Not Registered yet? Register Here!')),
+                   TextButton( 
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventForgotPassword(),
+                        );
+                  },
+                  child: const Text('I forgot my password!  ')),
+            ],
+          ),
         ),
       ),
     );

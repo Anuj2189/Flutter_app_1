@@ -27,4 +27,7 @@ factory AuthService.firebase() => AuthService(FirebaseAuthProvider());
   
   @override
   Future<void> initialize() => provider.initialize();
+  
+  @override
+  Future<void> sendPasswordReset({required String toEmail}) => provider.sendPasswordReset(toEmail: toEmail);
 }
